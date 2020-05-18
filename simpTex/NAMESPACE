@@ -1,2 +1,0 @@
-useDynLib(simpTex, .registration=TRUE)
-importFrom(Rcpp, evalCpp)
