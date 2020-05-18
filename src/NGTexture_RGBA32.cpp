@@ -147,15 +147,15 @@ void NGTexture2D_RGB32::Generate_IrregularStructuredNoise()
 
 }
 
-void NGTexture2D_RGB32::Generate_WorleyNoise(int iPoints, float fNoiseIntensity, const char* szColorFunc, const char* szDistanceFunc)
+void NGTexture2D_RGB32::Generate_WorleyNoise(int iPoints, const char* szColorFunc, const char* szDistanceFunc, float fNoiseIntensity)
 {
     int iPixel = 0;
     Color worleyColor;
-
+    
     WorleyNoise* worley = new WorleyNoise(iPoints, m_iWidth, m_iHeight);
     worley->setColorFunction(szColorFunc);
     worley->setDistanceFunction(szDistanceFunc);
-
+    
     for (int y = 0; y < m_iHeight; y++)
     {
         for (int x = 0; x < m_iWidth; x++)
@@ -163,7 +163,7 @@ void NGTexture2D_RGB32::Generate_WorleyNoise(int iPoints, float fNoiseIntensity,
             iPixel = (y * m_iWidth * 4) + (x * 4);
             
             worleyColor = worley->GetNoise(x, y);
-
+            
             m_pData[iPixel] = (m_pData[iPixel] * (1.0f - fNoiseIntensity)) + (worleyColor.r * fNoiseIntensity);
             m_pData[iPixel + 1] = (m_pData[iPixel + 1] * (1.0f - fNoiseIntensity)) + (worleyColor.g * fNoiseIntensity);
             m_pData[iPixel + 2] = (m_pData[iPixel + 2] * (1.0f - fNoiseIntensity)) + (worleyColor.b * fNoiseIntensity);
@@ -172,10 +172,8 @@ void NGTexture2D_RGB32::Generate_WorleyNoise(int iPoints, float fNoiseIntensity,
     }
 }
 
-void NGTexture2D_RGB32::Generate_ReactionDiffusion(int iIterations, int iSpawnPoints)
+void NGTexture2D_RGB32::Generate_ReactionDiffusion(int iIterations, int iSpawnPoints, float fNoiseIntensity)
 {
-
-
     float fCenterWeight = -1.0f;
     float fAdjacentWeight = 0.2f;
     float fDiagonalWeight = 0.051f;
@@ -184,7 +182,7 @@ void NGTexture2D_RGB32::Generate_ReactionDiffusion(int iIterations, int iSpawnPo
     float fDiffusionRateA = 0.42f;
     float fDiffusionRateB = 0.125f;
     float fTimeStep = 1.0f;
-
+    
     srand(time(NULL));
     
     int iBufferSize = m_iWidth * m_iHeight;
@@ -192,7 +190,7 @@ void NGTexture2D_RGB32::Generate_ReactionDiffusion(int iIterations, int iSpawnPo
     float* pBufferB0 = new float[iBufferSize];
     float* pBufferA1 = new float[iBufferSize];
     float* pBufferB1 = new float[iBufferSize];
-
+    
     for (int i = 0; i < iBufferSize; i++)
     {
         pBufferA0[i] = 1;
@@ -200,14 +198,14 @@ void NGTexture2D_RGB32::Generate_ReactionDiffusion(int iIterations, int iSpawnPo
         pBufferA1[i] = 1;
         pBufferB1[i] = 0;
     }
-
+    
     int iSpawned = 0;
     while (iSpawned < iSpawnPoints)
     {
         int iSpawnLocationX = rand() % m_iWidth;
         int iSpawnLocationY = rand() % m_iHeight;
         int iSpawnLocation = (iSpawnLocationY * m_iWidth) + iSpawnLocationX;
-
+        
         if (pBufferB0[iSpawnLocation] == 0)
         {
             pBufferB0[iSpawnLocation] = 1;
@@ -215,28 +213,28 @@ void NGTexture2D_RGB32::Generate_ReactionDiffusion(int iIterations, int iSpawnPo
             iSpawned++;
         }
     }
-
+    
     for (int n = 0; n < iIterations; n++)
     {
-        std::cout << "Iteration " << n << " of " << iIterations << std::endl;
         for (int i = 0; i < iBufferSize; i++)
         {
             grayScott(i, pBufferA0, pBufferB0, pBufferA1, pBufferB1, m_iWidth, m_iHeight, fCenterWeight, fAdjacentWeight, fDiagonalWeight,
-                fFeedRate, fKillRate, fDiffusionRateA, fDiffusionRateB, fTimeStep, n % 2);
+                      fFeedRate, fKillRate, fDiffusionRateA, fDiffusionRateB, fTimeStep, n % 2);
         }
     }
-
+    
     for (int i = 0; i < iBufferSize; i++)
     {
         int iVal = (int)((pBufferA0[i] - pBufferB0[i]) * 255);
         iVal = min(255, iVal);
-
-        m_pData[(i * 4)] = (unsigned char)iVal;
-        m_pData[(i * 4) + 1] = (unsigned char)iVal;
-        m_pData[(i * 4) + 2] = (unsigned char)iVal;
+        
+        m_pData[(i * 4)] = (m_pData[(i * 4)] * (1.0f - fNoiseIntensity)) + ((unsigned char)iVal * fNoiseIntensity);
+        m_pData[(i * 4) + 1] = (m_pData[(i * 4) + 1] * (1.0f - fNoiseIntensity)) + ((unsigned char)iVal * fNoiseIntensity);
+        m_pData[(i * 4) + 2] = (m_pData[(i * 4) + 2] * (1.0f - fNoiseIntensity)) + ((unsigned char)iVal * fNoiseIntensity);
         m_pData[(i * 4) + 3] = 255;
     }
 }
+
 
 bool NGTexture2D_RGB32::GetAs_RawData(void* aBuffer)
 {

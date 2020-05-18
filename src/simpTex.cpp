@@ -118,26 +118,26 @@ bool Generate_PerlinNoise(int iTextureID, float fNoiseResolution, float fNoiseIn
 }
 
 // [[Rcpp::export]]
-bool Generate_WorleyNoise(int iTextureID, int iPoints, float fNoiseIntensity, const char* szColorFunc, const char* szDistanceFunc)
+bool Generate_WorleyNoise(int iTextureID, int iPoints, const char* szColorFunc, const char* szDistanceFunc, float fNoiseIntensity)
 {
     NGTexture* pTexture = GetTexture(iTextureID);
     if (pTexture == nullptr)
         return false;
     
-    pTexture->Generate_WorleyNoise(iPoints, fNoiseIntensity, szColorFunc, szDistanceFunc);
+    pTexture->Generate_WorleyNoise(iPoints, szColorFunc, szDistanceFunc, fNoiseIntensity);
     return true;
 }
 
 // [[Rcpp::export]]
-bool Generate_ReactionDiffusion(int iTextureID, int iIterations, int iSpawnPoints)
+
+bool Generate_ReactionDiffusion(int iTextureID, int iIterations, int iSpawnPoints, float fNoiseIntensity)
 {
     NGTexture* pTexture = GetTexture(iTextureID);
     if (pTexture == nullptr)
         return false;
     
-    pTexture->Generate_ReactionDiffusion(iIterations, iSpawnPoints);
+    pTexture->Generate_ReactionDiffusion(iIterations, iSpawnPoints, fNoiseIntensity);
     return true;
 }
-
 
 

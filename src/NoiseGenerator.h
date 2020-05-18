@@ -28,14 +28,15 @@ bool GetRawData(int iTextureID, void* pBuffer);
 */
 bool SaveTextureToFile(int iTextureID, const char* szFile);
 
+
 /*
-* Functions for generating various types of noises.
-* Textures can be empty or have loaded/generated data in them. The noise functions will add the noise on top
-  of the exising pixels. Hence same texture can be passed multiple times to multiple functions.
-* Returns whether the noise was successfully added to the texture or not
-*/
+ * Functions for generating various types of noises.
+ * Textures can be empty or have loaded/generated data in them. The noise functions will add the noise on top
+ of the exising pixels. Hence same texture can be passed multiple times to multiple functions.
+ * Returns whether the noise was successfully added to the texture or not
+ */
 bool Generate_SimplexNoise(int iTextureID, float fNoiseResolution, float fNoiseIntensity);
 bool Generate_PerlinNoise(int iTextureID, float fNoiseResolution, float fNoiseIntensity);
 bool Generate_IrregularStructuredNoise(int iTextureID);
-bool Generate_WorleyNoise(int iTextureID, int iPoints, float fNoiseIntensity, const char* szColorFunc, const char* szDistanceFunc);
-bool Generate_ReactionDiffusion(int iTextureID, int iIterations, int iSpawnPoints);
+bool Generate_WorleyNoise(int iTextureID, int iPoints, const char* szColorFunc, const char* szDistanceFunc, float fNoiseIntensity);
+bool Generate_ReactionDiffusion(int iTextureID, int iIterations, int iSpawnPoints, float fNoiseIntensity);

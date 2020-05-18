@@ -69,30 +69,31 @@ BEGIN_RCPP
 END_RCPP
 }
 // Generate_WorleyNoise
-bool Generate_WorleyNoise(int iTextureID, int iPoints, float fNoiseIntensity, const char* szColorFunc, const char* szDistanceFunc);
-RcppExport SEXP _simpTex_Generate_WorleyNoise(SEXP iTextureIDSEXP, SEXP iPointsSEXP, SEXP fNoiseIntensitySEXP, SEXP szColorFuncSEXP, SEXP szDistanceFuncSEXP) {
+bool Generate_WorleyNoise(int iTextureID, int iPoints, const char* szColorFunc, const char* szDistanceFunc, float fNoiseIntensity);
+RcppExport SEXP _simpTex_Generate_WorleyNoise(SEXP iTextureIDSEXP, SEXP iPointsSEXP, SEXP szColorFuncSEXP, SEXP szDistanceFuncSEXP, SEXP fNoiseIntensitySEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< int >::type iTextureID(iTextureIDSEXP);
     Rcpp::traits::input_parameter< int >::type iPoints(iPointsSEXP);
-    Rcpp::traits::input_parameter< float >::type fNoiseIntensity(fNoiseIntensitySEXP);
     Rcpp::traits::input_parameter< const char* >::type szColorFunc(szColorFuncSEXP);
     Rcpp::traits::input_parameter< const char* >::type szDistanceFunc(szDistanceFuncSEXP);
-    rcpp_result_gen = Rcpp::wrap(Generate_WorleyNoise(iTextureID, iPoints, fNoiseIntensity, szColorFunc, szDistanceFunc));
+    Rcpp::traits::input_parameter< float >::type fNoiseIntensity(fNoiseIntensitySEXP);
+    rcpp_result_gen = Rcpp::wrap(Generate_WorleyNoise(iTextureID, iPoints, szColorFunc, szDistanceFunc, fNoiseIntensity));
     return rcpp_result_gen;
 END_RCPP
 }
 // Generate_ReactionDiffusion
-bool Generate_ReactionDiffusion(int iTextureID, int iIterations, int iSpawnPoints);
-RcppExport SEXP _simpTex_Generate_ReactionDiffusion(SEXP iTextureIDSEXP, SEXP iIterationsSEXP, SEXP iSpawnPointsSEXP) {
+bool Generate_ReactionDiffusion(int iTextureID, int iIterations, int iSpawnPoints, float fNoiseIntensity);
+RcppExport SEXP _simpTex_Generate_ReactionDiffusion(SEXP iTextureIDSEXP, SEXP iIterationsSEXP, SEXP iSpawnPointsSEXP, SEXP fNoiseIntensitySEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< int >::type iTextureID(iTextureIDSEXP);
     Rcpp::traits::input_parameter< int >::type iIterations(iIterationsSEXP);
     Rcpp::traits::input_parameter< int >::type iSpawnPoints(iSpawnPointsSEXP);
-    rcpp_result_gen = Rcpp::wrap(Generate_ReactionDiffusion(iTextureID, iIterations, iSpawnPoints));
+    Rcpp::traits::input_parameter< float >::type fNoiseIntensity(fNoiseIntensitySEXP);
+    rcpp_result_gen = Rcpp::wrap(Generate_ReactionDiffusion(iTextureID, iIterations, iSpawnPoints, fNoiseIntensity));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -104,7 +105,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_simpTex_Generate_SimplexNoise", (DL_FUNC) &_simpTex_Generate_SimplexNoise, 3},
     {"_simpTex_Generate_PerlinNoise", (DL_FUNC) &_simpTex_Generate_PerlinNoise, 3},
     {"_simpTex_Generate_WorleyNoise", (DL_FUNC) &_simpTex_Generate_WorleyNoise, 5},
-    {"_simpTex_Generate_ReactionDiffusion", (DL_FUNC) &_simpTex_Generate_ReactionDiffusion, 3},
+    {"_simpTex_Generate_ReactionDiffusion", (DL_FUNC) &_simpTex_Generate_ReactionDiffusion, 4},
     {NULL, NULL, 0}
 };
 
