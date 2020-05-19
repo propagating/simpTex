@@ -1,7 +1,7 @@
 ## Installation
 
         //To install the latest version from Github:
-        //install.packages("devtools")
+        install.packages("devtools") //may need to uninstall and reinstall
         devtools::install_github("propagating/simpTex")
 
 ## Functionality
