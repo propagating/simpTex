@@ -26,17 +26,17 @@ typedef std::function<Color(int)> ColorFunc;
 class WorleyNoise 
 {
 private:
-
+    
     int numberOfPoints;
-
+    
     DistanceFunc distanceFunc;
     ColorFunc    colorFunc;
     std::vector<Vector2i> points;
-
+    
 public:
-
+    
     WorleyNoise(int iPoints, int iWidth, int iHeight);
-
+    
     void setColorFunction(const std::string& colorFunction);
     void setDistanceFunction(const std::string& distanceFunction);
     

@@ -97,7 +97,7 @@ bool SaveTextureToFile(int iTextureID, const char* szFile)
 // [[Rcpp::export]]
 bool Generate_SimplexNoise(int iTextureID, float fNoiseResolution, float fNoiseIntensity)
 {
-    auto pTexture = GetTexture(iTextureID);
+    NGTexture* pTexture = GetTexture(iTextureID);
     if (pTexture == nullptr)
         return false;
     
@@ -105,17 +105,17 @@ bool Generate_SimplexNoise(int iTextureID, float fNoiseResolution, float fNoiseI
     return true;
 }
 
-
 // [[Rcpp::export]]
 bool Generate_PerlinNoise(int iTextureID, float fNoiseResolution, float fNoiseIntensity)
 {
-    auto pTexture = GetTexture(iTextureID);
+    NGTexture* pTexture = GetTexture(iTextureID);
     if (pTexture == nullptr)
         return false;
     
     pTexture->Generate_PerlinNoise(fNoiseResolution, fNoiseIntensity);
     return true;
 }
+
 
 // [[Rcpp::export]]
 bool Generate_WorleyNoise(int iTextureID, int iPoints, const char* szColorFunc, const char* szDistanceFunc, float fNoiseIntensity)
@@ -129,7 +129,6 @@ bool Generate_WorleyNoise(int iTextureID, int iPoints, const char* szColorFunc, 
 }
 
 // [[Rcpp::export]]
-
 bool Generate_ReactionDiffusion(int iTextureID, int iIterations, int iSpawnPoints, float fNoiseIntensity)
 {
     NGTexture* pTexture = GetTexture(iTextureID);
@@ -139,5 +138,3 @@ bool Generate_ReactionDiffusion(int iTextureID, int iIterations, int iSpawnPoint
     pTexture->Generate_ReactionDiffusion(iIterations, iSpawnPoints, fNoiseIntensity);
     return true;
 }
-
-

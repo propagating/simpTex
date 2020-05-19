@@ -1,8 +1,8 @@
 
 #include "Worley.h"
 #include <cmath>
-#include <stdlib.h> 
-#include <time.h>
+#include <cstdlib>
+#include <ctime>
 
 int max(int a, int b)
 {
@@ -37,7 +37,7 @@ int orth(int x1, int y1, int x2, int y2, DistanceFunc f)
 {
     int xDiff = abs(x1 - x2);
     int yDiff = abs(y1 - y2);
-
+    
     if (yDiff > xDiff)
         return (0.41 * xDiff) + (0.941246 * yDiff);
     else
@@ -60,7 +60,7 @@ Color sinColor(int value)
     float redPart = 20.5;
     float greenPart = 5.9;
     float bluePart = 3.9;
-
+    
     return Color((sin(value * redPart) * 10.0) - gammaAdj, (sin(value * greenPart) * 10.0) + gammaAdj, (sin(value * bluePart) * 10.0) - gammaAdj, 255);
 }
 
@@ -70,7 +70,7 @@ Color mintyColor(int distance)
     Color oct1 = sinColor(value);
     Color oct2 = modColor(value * 3);
     Color oct3 = xorColor(value);
-
+    
     Color fin = Color((oct1.r + oct2.r + oct3.r) / 3, (oct1.g + oct2.g + oct3.g) / 3, +(oct1.b + oct2.b + oct3.b) / 3, 255);
     fin = Color(max(0, 255 - fin.r), max(0, 255 - fin.g), max(0, 255 - fin.b), 255);
     return fin;
@@ -79,15 +79,15 @@ Color mintyColor(int distance)
 WorleyNoise::WorleyNoise(int iPoints, int iWidth, int iHeight)
 {
     srand(time(NULL));
-
+    
     colorFunc = linearColor;
     distanceFunc = euclideanDistance;
     numberOfPoints = iPoints;
-
+    
     Vector2i point;
     points.clear();
     points.reserve(iPoints);
-
+    
     for (int i = 0; i < iPoints; i++)
     {
         point.x = rand() % iWidth;
@@ -121,14 +121,14 @@ void WorleyNoise::setDistanceFunction(const std::string& distanceFunction)
 Color WorleyNoise::GetNoise(int x, int y)
 {
     int closestDist = 255;
-
+    
     for (int i = 0; i < points.size(); i++)
     {
         int xDiff = x - points[i].x;
         int yDiff = y - points[i].y;
-
+        
         bool inRange = (xDiff * xDiff) + (yDiff * yDiff) < (255 * 255);
-
+        
         if (inRange)
         {
             int dist = distanceFunc(x, y, points[i].x, points[i].y);
@@ -136,7 +136,7 @@ Color WorleyNoise::GetNoise(int x, int y)
                 closestDist = dist;
         }
     }
-
+    
     return colorFunc(closestDist);
 }
 

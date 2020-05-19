@@ -2,8 +2,6 @@
 
 #define WIN32_LEAN_AND_MEAN
 
-char* NoiseGenerator_GetLibraryName();
-
 /*
 * Supported format string are RGBA_32
 * Returns texture ID for newly created texture
@@ -16,18 +14,18 @@ int CreateTexture2D(const char* szFormat, int iWidth, int iHeight);
 */
 int CreateTextureOnImage2D(const char* szFormat, const char* szPNGFile);
 
+
 /*
-* Saves pointer to raw texture data in pBuffer. Raw data must be interpetted according to format, width and height of texture
-* Returns whether function was successful or not
-*/
+ * Saves pointer to raw texture data in pBuffer. Raw data must be interpetted according to format, width and height of texture
+ * Returns whether function was successful or not
+ */
 bool GetRawData(int iTextureID, void* pBuffer);
 
 /*
-* Saves the texture as a PNG image
-* Returns whether function was successful or not
-*/
+ * Saves the texture as a PNG image
+ * Returns whether function was successful or not
+ */
 bool SaveTextureToFile(int iTextureID, const char* szFile);
-
 
 /*
  * Functions for generating various types of noises.
@@ -37,6 +35,5 @@ bool SaveTextureToFile(int iTextureID, const char* szFile);
  */
 bool Generate_SimplexNoise(int iTextureID, float fNoiseResolution, float fNoiseIntensity);
 bool Generate_PerlinNoise(int iTextureID, float fNoiseResolution, float fNoiseIntensity);
-bool Generate_IrregularStructuredNoise(int iTextureID);
 bool Generate_WorleyNoise(int iTextureID, int iPoints, const char* szColorFunc, const char* szDistanceFunc, float fNoiseIntensity);
 bool Generate_ReactionDiffusion(int iTextureID, int iIterations, int iSpawnPoints, float fNoiseIntensity);
