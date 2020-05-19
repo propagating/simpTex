@@ -1,4 +1,4 @@
-##Installation
+## Installation
 
         //To install the latest version from Github:
         //install.packages("devtools")
