@@ -1,4 +1,10 @@
-## Use
+##Installation
+
+        //To install the latest version from Github:
+        //install.packages("devtools")
+        devtools::install_github("propagating/simpTex")
+
+## Functionality
 
 1. Create a new texture and store the textureId
     
