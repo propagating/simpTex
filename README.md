@@ -1,10 +1,17 @@
-## Installation
+## Installation And First Run
 
         //To install the latest version from Github:
+        
         install.packages("devtools") //may need to uninstall and reinstall
         devtools::install_github("propagating/simpTex")
+        library(simpTex)
+        texid = CreateTexture2D("RGBA32", 512,512)
+        Generate_WorleyNoise(texid, 10, "Minty", "OrthoEuclidean", 1.0)
+        SaveTextureToFile(texid, "C:/users/Ryan/Desktop/OrthoSample.png") # update filepath
+        
+![Worley Image Sample Output](https://i.imgur.com/cWGJ3JX.png)
 
-## Functionality
+## Creating Textures
 
 1. Create a new texture and store the textureId
     
@@ -27,7 +34,7 @@
         //Alpha : How dark you want the features. Low alpha makes them almost transparent (0.0-1.0)
 
         Generate_SimplexNoise(textureId, textureResoltuion, textureAlpha);
-
+        
 ### Worley Noise
         //Number of Points : How many points to display
         //Color Functions : Linear, Tan, Minty, Xor, Mod, And Sin
@@ -48,3 +55,10 @@
         //Image Name : Full File Path ex. "C:/directory/filename.png", directory must previousl exist, filename must include ".png"
     
         SaveTextureToFile(textureId, imageName);
+        
+        
+## Generated Samples
+
+The album contains samples of each generation algorithm, varying resolution, iterations, and points from small to large values with an Alpha of 1. There are multiple Worley samples covering distance and color function measures. The R Code is listed in the image descriptions.
+
+<a href="//imgur.com/a/b3xK14y">Texture Generation Album</a>
