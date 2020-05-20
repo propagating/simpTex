@@ -2,12 +2,12 @@
 
         //To install the latest version from Github:
         
-        install.packages("devtools") //may need to uninstall and reinstall
+        install.packages("devtools") # May need to uninstall and reinstall
         devtools::install_github("propagating/simpTex")
         library(simpTex)
         texid = CreateTexture2D("RGBA32", 512,512)
         Generate_WorleyNoise(texid, 10, "Minty", "OrthoEuclidean", 1.0)
-        SaveTextureToFile(texid, "C:/users/Ryan/Desktop/OrthoSample.png") # update filepath
+        SaveTextureToFile(texid, "C:/OrthoSample.png") # update filepath
         
 ![Worley Image Sample Output](https://i.imgur.com/cWGJ3JX.png)
 
