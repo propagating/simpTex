@@ -15,11 +15,11 @@
 
 1. Create a new texture and store the textureId
     
-        //Color Type : Only "RGBA" Supported
+        //Color Type : Only "RGBA32" Supported
         //Image Width : Width of texture
         //Image Height : Heigh of texture
 
-        textureId = CreateTexture2D("RGBA", imageWidth, imageHeight);
+        textureId = CreateTexture2D("RGBA32", imageWidth, imageHeight);
 
 2. Generate a texture, passing in texture id and other parameters
 
@@ -37,8 +37,8 @@
         
 ### Worley Noise
         //Number of Points : How many points to display
-        //Color Functions : Linear, Tan, Minty, Xor, Mod, And Sin
-        //Distance Functions : Euclidean, Chebyshev, Manhattan, OrthoEuclidean, OrthoManhattan, OrthoChebyshev
+        //Color Functions : "Linear", "Tan", "Minty", "Xor", "Mod", "And", "Sin"
+        //Distance Functions : "Euclidean", "Chebyshev", "Manhattan", "OrthoEuclidean", "OrthoManhattan", "OrthoChebyshev"
         //Alpha : How dark you want the features. Low alpha makes them almost transparent (0.0-1.0)
 
         Generate_WorleyNoise(textureId, numberPoints, colorFunction, distanceFunction, textureAlpha);
@@ -53,7 +53,7 @@
 3. Save texture
 
         //Image Name : Full File Path ex. "C:/directory/filename.png", directory must previousl exist, filename must include ".png"
-    
+
         SaveTextureToFile(textureId, imageName);
         
         
